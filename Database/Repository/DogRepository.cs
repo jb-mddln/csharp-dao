@@ -12,6 +12,32 @@ namespace csharp_dao.Database.Repository
             Connection = connection;
         }
 
+        public Dog? FindById(int id)
+        {
+            using (var cmd = new NpgsqlCommand("select * from dogs where id = @id limit 1;", Connection))
+            {
+                cmd.Parameters.AddWithValue("id", id);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (!reader.Read()) 
+                        return null;
+                    
+                    Dog dog = new Dog();
+                    dog.Id = (int)reader["id"];
+                    dog.Name = (string)reader["name"];
+                    dog.Breed = (string)reader["breed"];
+                    dog.Birthdate = reader["birth_date"] is DBNull ? null : (DateTime?)reader["birth_date"];
+                    return dog;
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         public List<Dog> FindAll(int limit = -1)
         {
             List<Dog> dogs = new List<Dog>();
@@ -42,6 +68,20 @@ namespace csharp_dao.Database.Repository
             return dogs;
         }
 
+        public void Update(Dog dog)
+        {
+
+        }
+
+        public void Delete(Dog dog)
+        {
+
+        }
+
+        /// <summary>
+        /// Sauvegarde notre objet Dog dans notre base de donnée
+        /// </summary>
+        /// <param name="dog"></param>
         public void Save(Dog dog)
         {
             if (Connection == null)
@@ -50,7 +90,7 @@ namespace csharp_dao.Database.Repository
             if (dog.Id < 0)
                 return;
 
-            using (var cmd = new NpgsqlCommand("INSERT INTO dogs (id, name, breed, birth_date) VALUES (@id, @name, @breed, @birth_date)", Connection))
+            using (var cmd = new NpgsqlCommand("insert into dogs (id, name, breed, birth_date) VALUES (@id, @name, @breed, @birth_date)", Connection))
             {
                 cmd.Parameters.AddWithValue("id", dog.Id);
                 cmd.Parameters.AddWithValue("name", dog.Name);
