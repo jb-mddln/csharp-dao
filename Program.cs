@@ -14,9 +14,11 @@ namespace csharp_dao
             
             DogRepository dogRepository = new DogRepository(connection);
 
-            List<Dog> dogs = dogRepository.FindAll();
+            List<Dog> allDogs = dogRepository.FindAll();
+            List<Dog> twoDogs = dogRepository.FindAll(2);
 
-            Console.WriteLine(string.Join("\n", dogs.Select(dog => dog.ToString())));
+            Console.WriteLine(string.Join("\n", allDogs.Select(dog => dog.ToString())));
+            Console.WriteLine(string.Join("\n", twoDogs.Select(dog => dog.ToString())));
 
             while (true)
             {

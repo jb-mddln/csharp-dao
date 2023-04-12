@@ -12,14 +12,18 @@ namespace csharp_dao.Database.Repository
             Connection = connection;
         }
 
-        public List<Dog> FindAll()
+        public List<Dog> FindAll(int limit = -1)
         {
             List<Dog> dogs = new List<Dog>();
 
             if (Connection == null)
                 return dogs;
 
-            using (var cmd = new NpgsqlCommand("select * from dogs", Connection))
+            string sql = "select * from dogs";
+            if (limit > 0)
+                sql += $" limit {limit}";
+
+            using (var cmd = new NpgsqlCommand(sql, Connection))
             {
                 using (var reader = cmd.ExecuteReader())
                 {
