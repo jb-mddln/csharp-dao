@@ -13,12 +13,12 @@
         // <summary>
         /// Champ name sur notre table dogs
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
         // <summary>
         /// Champ breed sur notre table dogs
         /// </summary>
-        public string Breed { get; set; }
+        public string Breed { get; set; } = "";
 
         // <summary>
         /// Champ birth_date sur notre table dogs
