@@ -23,6 +23,15 @@
         // <summary>
         /// Champ birth_date sur notre table dogs
         /// </summary>
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
+
+        /// <summary>
+        /// Retourne les informations du chien sous forme de chaine de caractères
+        /// </summary>
+        /// <returns>Infos du chien</returns>
+        public override string ToString()
+        {
+            return $"Id: {this.Id}, Name: {this.Name}, Breed: {this.Breed}, Birthdate: {(this.Birthdate.HasValue ? this.Birthdate.Value.ToString("dd/MM/yyyy") : "null")}";
+        }
     }
 }
