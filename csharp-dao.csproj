@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Database\" />
     <Folder Include="Repository\" />
   </ItemGroup>
 
